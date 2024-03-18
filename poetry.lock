@@ -153,6 +153,16 @@ typing = ["typing-extensions"]
 xmp = ["defusedxml"]
 
 [[package]]
+name = "pytils"
+version = "0.4.1"
+description = "Russian-specific string utils"
+optional = false
+python-versions = "^3.7"
+files = [
+    {file = "pytils-0.4.1.tar.gz", hash = "sha256:aa109b1bc0ec4bdb7c9768520110348d8aeb0706600e6cf641272e6850e26eab"},
+]
+
+[[package]]
 name = "pytz"
 version = "2024.1"
 description = "World timezone definitions, modern and historical"
@@ -193,4 +203,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "865f745167d95cbc29ba133af8e7831afdac481dea58ce96cb0e798fccf3c171"
+content-hash = "44e51c2bd6bf6f6d2438a3ba5e5d8c74fdaa64a667a2ba6962dbab2dcfe5db14"
