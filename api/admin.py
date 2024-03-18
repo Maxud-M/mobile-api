@@ -4,6 +4,7 @@ from .models import Question, Category, Course, OfflineOrder
 import shutil
 from django.conf import settings
 
+
 class CourseAdmin(admin.ModelAdmin):
     
     def save_model(self, request, obj, form, change):
@@ -27,8 +28,6 @@ class CourseAdmin(admin.ModelAdmin):
         os.makedirs(base_dir + os.path.dirname(new_content_path), exist_ok=True)
         shutil.move(image_path, base_dir + new_image_path)
         shutil.move(content_path, base_dir + new_content_path)
-
-         
 
 
 admin.site.register(Question)

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # 3rd-party app
     'rest_framework',
+    'django_filters',
 
     # Local
     'api.apps.ApiConfig',
