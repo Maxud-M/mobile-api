@@ -1,0 +1,166 @@
+OrderedDict([('id', IntegerField(label='ID', read_only=True)), ('name', CharField(max_length=50)), ('image', ImageField(max_length=100)), ('course_duration', CharField(max_length=50)), ('category_description', CharField(read_only=True, source='category_id.description')), ('level', ChoiceField(choices=[(1, 'Low'), (2, 'Medium'), (3, 'High')], required=False)), ('type_of_course', ChoiceField(choices=[('AUDIO', 'Audio'), ('VIDEO', 'Video'), ('TEXT', 'Text')], required=False)), ('content', FileField(max_length=100))])
+OrderedDict([('id', IntegerField(label='ID', read_only=True)), ('name', CharField(max_length=50)), ('image', ImageField(max_length=100)), ('course_duration', CharField(max_length=50)), ('category_description', CharField(read_only=True, source='category_id.description')), ('level', ChoiceField(choices=[(1, 'Low'), (2, 'Medium'), (3, 'High')], required=False)), ('type_of_course', ChoiceField(choices=[('AUDIO', 'Audio'), ('VIDEO', 'Video'), ('TEXT', 'Text')], required=False)), ('content', FileField(max_length=100))])
+OrderedDict([('id', IntegerField(label='ID', read_only=True)), ('name', CharField(max_length=50)), ('image', ImageField(max_length=100)), ('course_duration', CharField(max_length=50)), ('category_description', CharField(read_only=True, source='category_id.description')), ('level', ChoiceField(choices=[(1, 'Low'), (2, 'Medium'), (3, 'High')], required=False)), ('type_of_course', ChoiceField(choices=[('AUDIO', 'Audio'), ('VIDEO', 'Video'), ('TEXT', 'Text')], required=False)), ('content', FileField(max_length=100))])
+OrderedDict([('id', IntegerField(label='ID', read_only=True)), ('name', CharField(max_length=50)), ('image', ImageField(max_length=100)), ('course_duration', CharField(max_length=50)), ('category_description', CharField(read_only=True, source='category_id.description')), ('level', ChoiceField(choices=[(1, 'Low'), (2, 'Medium'), (3, 'High')], required=False)), ('type_of_course', ChoiceField(choices=[('AUDIO', 'Audio'), ('VIDEO', 'Video'), ('TEXT', 'Text')], required=False)), ('content', FileField(max_length=100))])
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/v1/questions/:
+    get:
+      operationId: listQuestions
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Question'
+          description: ''
+      tags:
+      - api
+  /api/v1/courses/:
+    get:
+      operationId: listCourses
+      description: ''
+      parameters:
+      - name: level
+        required: false
+        in: query
+        description: level
+        schema:
+          type: string
+          enum:
+          - 1
+          - 2
+          - 3
+      - name: type_of_course
+        required: false
+        in: query
+        description: type_of_course
+        schema:
+          type: string
+          enum:
+          - AUDIO
+          - VIDEO
+          - TEXT
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+          description: ''
+      tags:
+      - api
+  /api/v1/courses/{id}/:
+    get:
+      operationId: retrieveCourse
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this course.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Course'
+          description: ''
+      tags:
+      - api
+  /api/v1/offorders/:
+    get:
+      operationId: listOfflineOrders
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfflineOrder'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createOfflineOrder
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfflineOrder'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OfflineOrder'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OfflineOrder'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OfflineOrder'
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    Question:
+      type: object
+      properties:
+        question:
+          type: string
+        image:
+          type: string
+          format: binary
+      required:
+      - question
+      - image
+    Course:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 50
+        image:
+          type: string
+          format: binary
+        category_description:
+          type: string
+          readOnly: true
+        content:
+          type: string
+          format: binary
+      required:
+      - name
+      - image
+      - content
+    OfflineOrder:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 150
+        phone_number:
+          type: string
+          pattern: ^(8|\+7)\s*[\-]?\s*((\(\d{3}\)\s*[\-]?\s*\d{3}\s*[\-]\s*\d{2}\s*[\-]?\s*\d{2})|(\s*\d{3}\s*[\-]?\s*\d{3}\s*[\-]?\s*\d{2}\s*[\-]?\s*\d{2}\s*))$
+          maxLength: 12
+      required:
+      - name
+      - phone_number
