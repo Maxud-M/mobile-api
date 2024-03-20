@@ -19,6 +19,9 @@ class Category(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='categories/')
 
+    class Meta:
+        verbose_name_plural = 'Categories'
+
     def __str__(self):
         return self.name 
 
@@ -46,7 +49,7 @@ class Course(models.Model):
     category_id = models.ForeignKey(Category, on_delete=models.PROTECT)
     level = models.IntegerField(choices=LevelChoices.choices, default=LevelChoices.LOW,)
     type_of_course = models.CharField(max_length=5, choices=TYPE_CHOICES, default=TEXT)
-    content = models.FileField(upload_to='courses/')
+    content = models.FileField(upload_to='courses/', blank=False)
 
 
     def __str__(self):
